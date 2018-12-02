@@ -1,0 +1,73 @@
+<i class="close icon"></i>
+<div class="header">
+	{{{title}}}
+</div>
+<div class="content">
+	<div class="ui active dimmer loading">
+    	<div class="ui loader"></div>
+  	</div>
+	<form class="ui form submit-form form-add-process" method="POST">
+		<input type="hidden" name="idAddProcess" id="idAddProcess" value="{{id}}">
+		<input type="hidden" name="methodAddProcess" id="methodAddProcess" value="{{method}}">
+		<div class="ui error message"></div>	
+		<div class="field required">
+			<label>N&uacute;mero processo unificado</label>
+			<input type="text" name="processoUnificado" id="processoUnificado" placeholder="Numero processo"  value={{number}}>
+		</div>
+		<div class="field">
+			<label>Data distribui&ccedil;&atilde;o</label>
+			<div class="ui calendar" id="distribuicaoAdd">
+				<div class="ui input left icon">
+					<i class="calendar icon"></i>
+					<input type="text" id="dataDistribuicao" placeholder="Data distribui&ccedil;&atilde;o" value={{distributionDate}}>
+				</div>
+			</div>    					
+		</div>
+	  	<div class="field required">
+			<label>Situa&ccedil;&atilde;o</label>
+			<select name="situacao" id="situacao">
+				<option value="Em andamento">Em andamento</option>
+				<option value="Desmembrado">Desmembrado</option>
+				<option value="Em recurso">Em recurso</option>
+				<option value="Finalizado">Finalizado</option>
+				<option value="Arquivado">Arquivado</option>
+			</select>
+		</div>
+		<div class="field">
+			<label>Pasta fisica cliente</label>
+			<input type="text" id="pastaFisica" name="pastaFisica" placeholder="Pasta fisica" maxlength="50" value={{physicalFolder}}>
+		</div>
+		<div class="field">
+			<div class="ui checkbox">
+		      	<input type="checkbox" tabindex="0" id="segredoJustica" {{segredojustica}}>
+				<label>Segredo de justi&ccedil;a</label>
+			</div>
+		</div>
+	  	<div class="field required">
+			<label>Respons&aacute;vel</label>
+			<select id="listResponsible" name="listResponsible" multiple="" class="ui fluid search dropdown">
+				{{#responsibles}}
+					<option value="{{id}}">{{cpf}} - {{name}}</option>
+				{{/responsibles}}
+							
+			</select>
+		</div>
+		<div class="field">
+			<label>Descri&ccedil;&atilde;o</label>
+			<textarea row="3" cols="80" id="descricao" placeholder="Descri&ccedil;&atilde;o processo" maxlength="1000">{{description}}</textarea>
+		</div>
+	  	<div class="field">
+			<label>Processo Vinculado</label>
+			<select name="processoPai" id="processoPai" class="ui fluid search dropdown">
+				<option value="0">Sem processo vinculado</option>
+				{{#process}}
+					<option value="{{id}}">{{number}}</option>
+				{{/process}}
+			</select>
+		</div>
+	</form>  			
+</div>
+<div class="actions">
+	<div class="ui black cancel button">Cancelar</div>
+	<div class="ui green submit right labeled icon button btn-save-process"><i class="save icon"></i>Salvar</div>
+</div>

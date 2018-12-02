@@ -1,0 +1,84 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="semantic-ui/semantic.min.css">
+		<link rel="stylesheet" type="text/css" href="datatable/datatables.min.css">
+		<link rel="stylesheet" type="text/css" href="css/custom.css">
+		<link href="font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+		<link href="semantic-calendar/calendar.min.css" rel="stylesheet" type="text/css" />
+				
+		<script src="bluebird/bluebird.min.js"></script>
+		<script src="jquery/jquery-3.1.1.min.js"></script>
+		<script src="jquery.mask/jquery.mask.min.js"></script>
+		<script src="semantic-ui/semantic.min.js"></script>
+		<script src="datatable/datatables.min.js"></script>
+		<script src="semantic-calendar/calendar.min.js"></script>
+		<script src="js/main.js"></script>
+		<script src="js/util.js"></script>
+		<script src="mustache/mustache.min.js"></script>
+		<script src="moment/moment.js"></script>
+		<script src="moment/moment-timezone-with-data.min.js"></script>
+		
+		<title>Avaliação Softplan</title>
+		
+	</head>
+	<body>
+		<div class="ui active dimmer loading">
+	    	<div class="ui loader"></div>
+	  	</div>
+		<div class="page-header"></div>
+		
+		<main></main>
+		
+		<div class="ui modal modal-add-process"></div>
+		
+		<div class="ui modal modal-add-responsible"></div>
+		<div class="ui modal modal-process-structure">
+    		<div class="header">Estrutura Processo Judicial</div>
+    		<div class="content"></div>
+    		<div class="actions">
+      			<div class="ui black cancel button">OK</div>
+    		</div>
+		</div>
+		
+		<div class="ui mini test modal transition hidden modal-delete"></div>
+		
+		<script type="text/template" class="tpl-delete">
+    		<div class="header">
+      			{{{title}}}
+    		</div>
+    		<div class="content">
+      			<p>{{{message}}}</p>
+    		</div>
+    		<div class="actions">
+      			<div class="ui negative button">N&atilde;o</div>
+      			<div class="ui positive right labeled icon button btn-confirm-remove" data-path="{{path}}" data-id="{{id}}" data-js="{{js}}" data-event={{event}}>Sim<i class="checkmark icon"></i></div>
+    		</div>
+  		</script>
+		
+		<div class="ui modal modal-message"></div>
+		
+	    <script type="text/template" class="tpl-message">
+  				<i class="close icon"></i>
+  				<div class="content">
+					<div class="ui {{type}} message">
+  						<div class="header">
+	    					{{{header}}}
+  						</div>
+  						<p>{{{message}}}</p>
+					</div>  			
+  				</div>
+  				<div class="actions">
+	    			<div class="ui black cancel button">OK</div>
+  				</div>
+	    </script>
+	    <script type="text/template" class="tpl-filtro-responsavel">
+			<option value="">Selecione</option>					    
+			<option value=" ">Todos</option>					    
+			{{#responsibles}}
+				<option value="{{name}}">{{cpf}} - {{name}}</option>
+			{{/responsibles}}
+		</script>
+		
+				
+	</body>
+</html>

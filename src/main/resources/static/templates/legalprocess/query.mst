@@ -1,0 +1,85 @@
+<div class="page page-{{code}}">
+	<div class="ui grid">
+	  	<div class="one wide column"></div>
+	  	<div class="nine wide column">
+			<h1 class="ui header">Gest&atilde;o de processos | Consultar processos</h1>
+		</div>
+	</div>	
+	<div class="ui segment">
+		<div class="ui form">
+			<div class="fields">
+				<div class="four wide field">
+				    <label>N&uacute;mero processo unificado</label>
+					<input type="text" name="filtroNumeroProcesso" id="filtroNumeroProcesso" placeholder="Numero processo" class="search-process" data-column="0">
+				</div>
+				<div class="two wide field">
+					<label>Data distribui&ccedil;&atilde;o</label>
+					<div class="ui calendar" id="distribuicaoInicioCalendar">
+	 					<div class="ui input left icon">
+	   						<i class="calendar icon"></i>
+	   						<input type="text" placeholder="Inicio" name="distribuicaoInicio" id="distribuicaoInicio">
+	 					</div>
+					</div>
+				</div>
+				<div class="two wide field">
+					<label>&nbsp;</label>
+					<div class="ui calendar" id="distribuicaoFimCalendar">
+	  					<div class="ui input left icon">
+	    					<i class="calendar icon"></i>
+	    					<input type="text" placeholder="Fim" name="distribuicaoFim" id="distribuicaoFim">
+	  					</div>
+					</div>
+				</div>	  				
+			  	<div class="three wide field">
+	  				<label>Situa&ccedil;&atilde;o</label>
+	  				<select class="change-search-process" data-column="5">
+	  					<option value="">Todas</option>
+	  					<option value="Em andamento">Em andamento</option>
+	  					<option value="Desmembrado">Desmembrado</option>
+	  					<option value="Em recurso">Em recurso</option>
+	  					<option value="Finalizado">Finalizado</option>
+	  					<option value="Arquivado">Arquivado</option>
+	  				</select>
+				</div>
+			  	<div class="three wide field">
+					<div class="ui checkbox checkbox-space">
+						<input type="checkbox" tabindex="0"  class="change-search-process" id="filtroSegredo" data-column="2">
+					    <label>Segredo de justi&ccedil;a</label>
+					</div>
+				</div>
+			  	<div class="two wide field">
+	   				<div class="ui right floated small primary labeled icon button btn-adicionar-processo">
+	 					<i class="file alternate outline icon"></i>Adicionar processo
+	   				</div>
+				</div>
+			</div>
+			<div class="fields">
+				<div class="six wide field">
+				    <label>Pasta fisica cliente</label>
+					<input type="text" name="filtroPastaCliente" placeholder="Pasta cliente" class="search-process" id="filtroPastaCliente" data-column="3">
+				</div>
+				<div class="six wide field">
+				    <label>Respons&aacute;vel</label>
+					<select class="ui search dropdown" id="filtroResponsavel" class="change-search-process" data-column="6"></select>
+				</div>
+			</div>
+		</div>		
+		<table class="ui celled padded table" id="tableLegalProcess" data-order='[[ 0, "asc" ]]' data-page-length='10' style="width:100%">
+			<thead>
+				<tr>
+					<th class="single line">N&uacute;mero processo unificado</th>
+					<th>Data distribui&ccedil;&atilde;o</th>
+					<th>Segredo de justi&ccedil;a</th>
+					<th>Pasta fisica cliente</th>
+					<th>Descri&ccedil;&atilde;o</th>
+					<th>Situa&ccedil;&atilde;o</th>
+					<th>Respons&aacute;veis</th>
+					<th>Ids</th>
+					<th>A&ccedil;&otilde;es</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+</div>		

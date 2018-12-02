@@ -1,0 +1,45 @@
+.logo {
+    float: right;
+    margin-top: 20px;
+}
+
+.segment {
+	padding-left: 20px !important;
+}
+
+.checkbox-space {
+	margin-top: 30px !important;
+}
+
+.datepicker {
+	width: 49% !important;
+}
+
+.btn-consultar {
+    margin-top: 23px !important;
+}
+
+.user-avatar {
+	width: 100px !important;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.dataTables_filter {
+	display: none; 
+}
+
+.ui.secondary.inverted.pointing.menu {
+    border-color: #5f646b !important;
+}
+
+.ui.inverted.segment, .ui.primary.inverted.segment {
+    background: #5f646b !important;
+}

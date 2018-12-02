@@ -1,0 +1,16 @@
+<div class="ui grid">
+  	<div class="four wide column">
+		<a title="Página inicial da Softplan" href="https://www.softplan.com.br" class="logo"> 
+			<img src="https://www.softplan.com.br/wp-content/themes/softplanNEW/images/logo.png" alt="Softplan">
+		</a>
+  	</div>
+  	<div class="twelve wide column">
+		<div class="ui inverted vertical masthead center aligned segment">
+      		<div class="ui large secondary inverted pointing menu">
+				{{#menu}}
+	        		<a class="{{active}} item click-menu-item" data-page="{{page}}" data-controller="{{controller}}">{{label}}</a>
+				{{/menu}}
+      		</div>
+		</div>
+  	</div>
+</div>	

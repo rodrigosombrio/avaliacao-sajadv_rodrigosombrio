@@ -1,0 +1,44 @@
+<div class="page page-{{code}}">
+	<div class="ui grid">
+	  	<div class="one wide column"></div>
+	  	<div class="nine wide column">
+			<h1 class="ui header">Gest&atilde;o de processos | Consultar respons&aacute;veis</h1>
+		</div>
+	</div>	
+	<div class="ui segment">
+		<div class="ui form">
+			<div class="fields">
+				<div class="four wide field">
+				    <label>Nome</label>
+					<input type="text" name="nomeResponsavel" placeholder="Nome" data-column="0" class="search-responsible">
+				</div>
+				<div class="two wide field">
+					<label>CPF</label>
+					<input type="text" placeholder="000.000.000-00" name="cpf" id="cpf" data-column="1" class="search-responsible">
+				</div>
+				<div class="four wide field">
+					<label>N&uacute;mero processo unificado</label>
+					<input type="text" name="processoUnificadoResponsavel" id="processoUnificadoResponsavel" placeholder="Numero processo" data-column="2" class="search-responsible">
+				</div>	  				
+			  	<div class="two wide field">&nbsp;</div>
+			  	<div class="four wide field">
+					<div class="ui right floated small primary labeled icon button btn-adicionar-responsavel">
+						<i class="user plus icon"></i>Adicionar Respons&aacute;vel
+					</div>
+				</div>
+			</div>
+		</div>		
+		<table id="tableResponsibles" class="ui celled padded table"  data-order='[[ 0, "asc" ]]' data-page-length='10' style="width:100%">
+			<thead>
+				<tr>
+					<th class="single line">Nome</th>
+					<th>CPF</th>
+					<th>Processos que &eacute; respons&aacute;vel</th>
+					<th>A&ccedil;&otilde;es</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+</div>

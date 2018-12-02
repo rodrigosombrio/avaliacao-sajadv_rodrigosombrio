@@ -1,0 +1,41 @@
+<i class="close icon"></i>
+<div class="header">
+	{{{title}}}
+</div>
+<div class="content">
+	<div class="ui active dimmer loading">
+    	<div class="ui loader"></div>
+  	</div>
+	<form method="POST" enctype="multipart/form-data" id="fileUploadForm">	
+		<div class="ui card user-avatar">
+			<div class="image">
+		    	<img src="{{photo}}" class="user-avatar" id="user-avatar">
+		  	</div>
+			<input type="file" class="inputfile" id="userAvatar" name="userAvatar" accept="image/*" />
+			<label for="userAvatar" class="ui right floated button">Alterar foto</label>
+		</div>
+	</form>					
+
+	<form class="ui form submit-form form-add-responsible" method="POST">
+		<input type="hidden" name="idAdd" id="idAdd" value="{{id}}">
+		<input type="hidden" name="methodAdd" id="methodAdd" value="{{method}}">
+		<input type="hidden" name="avatar" id="avatar" value="{{photo}}">
+		<div class="ui error message"></div>
+		<div class="field required">
+			<label>Nome</label>
+			<input type="text" name="nomeAdd" id="nomeAdd" placeholder="Nome" value="{{name}}">
+		</div>
+		<div class="field required">
+			<label>CPF</label>
+			<input type="text" name="cpfAdd" id="cpfAdd" placeholder="000.000.000-00" class="cpf" value="{{cpf}}">
+		</div>
+		<div class="field required">
+			<label>E-mail</label>
+			<input type="email" name="emailAdd" id="emailAdd" placeholder="abc@abc.com.br" value="{{email}}">
+		</div>
+	</form>  			
+</div>
+<div class="actions">
+	<div class="ui black cancel button">Cancelar</div>
+	<div class="ui green submit right labeled icon button btn-save-responsible"><i class="save icon"></i>Salvar</div>
+</div>
