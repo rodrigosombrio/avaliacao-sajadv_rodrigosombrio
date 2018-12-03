@@ -26,9 +26,9 @@
 	  	<div class="field required">
 			<label>Situa&ccedil;&atilde;o</label>
 			<select name="situacao" id="situacao">
-				<option value="Em andamento">Em andamento</option>
+				<option value="Em_Andamento">Em andamento</option>
 				<option value="Desmembrado">Desmembrado</option>
-				<option value="Em recurso">Em recurso</option>
+				<option value="Em_Recurso">Em recurso</option>
 				<option value="Finalizado">Finalizado</option>
 				<option value="Arquivado">Arquivado</option>
 			</select>

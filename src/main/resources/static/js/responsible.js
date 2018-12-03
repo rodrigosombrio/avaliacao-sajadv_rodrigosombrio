@@ -33,6 +33,7 @@ var responsible = (function(){
 			return { "title": "Respons&aacute;vel eliminado", "message": "O respons&aacute;vel foi eliminado com sucesso!"}
 		},
 		start: function() {
+			$(".loading").show();
 			$.get('templates/responsible/query.mst', function(tpl) {
 				var html = Mustache.render(tpl, {"code": "responsavel" });
 				$("main").append(html);
@@ -48,6 +49,7 @@ var responsible = (function(){
 				contentType : 'application/json',
 				url: '/responsaveis'					
 			};
+			$(".loading").show();
 			main.request(options).then(function(data) {
 				var options = {
 					type: 'GET',
@@ -56,6 +58,7 @@ var responsible = (function(){
 					url: '/processos'					
 				};
 				main.request(options).then(function(result) {
+					$(".loading").hide();
 					for (var y=0; y<data.length; y++) {
 						var resp = data[y];
 						resp["process"] = "";
@@ -105,10 +108,12 @@ var responsible = (function(){
 					}
 					responsibleEvents.actionsDatatable();
 				}).catch(function(error) {
+					$(".loading").hide();
 					util.showMessage("error", "Erro buscar processos", error);
 					$(".loading").hide();
 				});
 			}).catch(function(error) {
+				$(".loading").hide();
 				util.showMessage("error", "Erro buscar responsaveis", error);
 				$(".loading").hide();
 			});

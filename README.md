@@ -10,7 +10,7 @@ Para executar o projeto localmente é necessário ter instalado:
 
 * [Mysql 5.5 ou superior](https://dev.mysql.com/downloads/mysql/) - Banco de dados da aplicação
 * [Java JDK 8](https://www.oracle.com/technetwork/pt/java/javase/downloads/index.html) - JAVA JDK 1.8
-* [Maven](https://www-eu.apache.org/dist/maven/maven-3/3.5.4/binaries/) - Gerenciamento do projeto e dependencias
+* [Maven 3.5.4](https://www-eu.apache.org/dist/maven/maven-3/3.5.4/binaries/) - Gerenciamento do projeto e dependencias
 
 ### Iniciando o ambiente
 
@@ -106,7 +106,7 @@ Nesse ponto o Maven irá compilar e executar o teste na aplicação, ao final de
 
 ### Iniciando
 
-Para iniciar o projeto utilize o comando:
+Para iniciar o projeto utilize o comando dentro da pasta do projeto:
 
 ```
 mvn spring-boot:run

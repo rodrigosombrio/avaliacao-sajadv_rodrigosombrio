@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.softplan.juridico.core.entity.Responsible;
-import com.softplan.juridico.core.mail.SendMail;
 import com.softplan.juridico.core.repository.ResponsibleRepository;
+import com.softplan.juridico.util.ValidCpf;
 
 @Controller
 @RestController
@@ -54,6 +54,28 @@ public class ResponsibleController {
 			  result.put("field", "cpfAdd");
 			  return new ResponseEntity<String>(result.toString(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
 		  }
+		  
+		  if (newResponsible.getCpf().isEmpty()) {
+			  result.put("error", "Você de informar um CPF!");
+			  result.put("field", "cpfAdd");
+			  return new ResponseEntity<String>(result.toString(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
+		  }
+		  if (newResponsible.getName().isEmpty()) {
+			  result.put("error", "Você de informar um nome para o responsavel!");
+			  result.put("field", "nomeAdd");
+			  return new ResponseEntity<String>(result.toString(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
+		  }
+		  if (newResponsible.getEmail().isEmpty()) {
+			  result.put("error", "Você de informar um e-mail para o responsavel!");
+			  result.put("field", "emailAdd");
+			  return new ResponseEntity<String>(result.toString(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
+		  }
+		  if (ValidCpf.isCPF(newResponsible.getCpf())) {
+			  result.put("error", "CPF informado para o responsavel é invalido!"); 
+			  result.put("field", "cpfAdd");
+			  return new ResponseEntity<String>(result.toString(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
+		  }
+		  
 		  
 		  result.put("content", responsibleRepository.save(newResponsible));
 		  return new ResponseEntity<String>(result.toString(), headers, HttpStatus.OK);

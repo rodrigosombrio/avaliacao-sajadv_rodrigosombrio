@@ -1,11 +1,13 @@
 package com.softplan.juridico.core.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +17,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.softplan.juridico.core.Situation;
 
 @Entity
 @NamedQueries({
@@ -28,7 +36,7 @@ public class LegalProcess implements Serializable {
 	
 	public LegalProcess() {}
 	
-	public LegalProcess(Long id, Date date, Boolean secret, String folder, String situation, String description) {
+	public LegalProcess(Long id, Calendar date, Boolean secret, String folder, Situation situation, String description) {
 		this.setId(id);
 		this.setDistributionDate(date);
 		this.setJusticeSecret(secret);
@@ -53,7 +61,8 @@ public class LegalProcess implements Serializable {
 	/**
 	 * Data distribuição
 	 */
-	private Date distributionDate;	
+	@Temporal(TemporalType.DATE)
+	private Calendar distributionDate;	
 
 	/**
 	 * Nome.
@@ -65,7 +74,11 @@ public class LegalProcess implements Serializable {
 	 */
 	private String physicalFolder;
 
-	private String situation;
+	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(name = "situation", nullable = false)
+	private Situation situation;
 	
 	/**
 	 * Cpf.
@@ -98,11 +111,12 @@ public class LegalProcess implements Serializable {
 		this.number = number;
 	}
 
-	public Date getDistributionDate() {
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	public Calendar getDistributionDate() {
 		return distributionDate;
 	}
 
-	public void setDistributionDate(Date distributionDate) {
+	public void setDistributionDate(Calendar distributionDate) {
 		this.distributionDate = distributionDate;
 	}
 
@@ -138,11 +152,11 @@ public class LegalProcess implements Serializable {
 		this.processFather = processFather;
 	}
 
-	public String getSituation() {
+	public Situation getSituation() {
 		return situation;
 	}
 
-	public void setSituation(String situation) {
+	public void setSituation(Situation situation) {
 		this.situation = situation;
 	}
 

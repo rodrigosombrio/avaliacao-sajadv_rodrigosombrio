@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.softplan.juridico.core.Situation;
 import com.softplan.juridico.core.entity.LegalProcess;
 import com.softplan.juridico.core.entity.Responsible;
 import com.softplan.juridico.core.mail.SendMail;
@@ -53,9 +54,20 @@ public class LegalProcessController {
 		  headers.add("Content-Type", "application/json; charset=utf-8");
 
 		  if (p != null && newProcess.getId() != p.getId()) {
-			  log.info("newProcess: {}: {}", newProcess.getId(), p.getId());
 			  result.put("error", "Número do processo informado já está cadastrado");
 			  result.put("field", "processoUnificado");
+			  return new ResponseEntity<String>(result.toString(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
+		  }
+		  
+		  if (newProcess.getResponsibles().size() == 0) {
+			  result.put("error", "Você deve informar ao menos um responsável!");
+			  result.put("field", "listResponsible");
+			  return new ResponseEntity<String>(result.toString(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
+		  }
+
+		  if (newProcess.getResponsibles().size() > 4) {
+			  result.put("error", "Você deve informar no maximo 3 responsáveis!");
+			  result.put("field", "listResponsible");
 			  return new ResponseEntity<String>(result.toString(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
 		  }
 		  
@@ -85,7 +97,7 @@ public class LegalProcessController {
 	  }
 	  
 	  @DeleteMapping("/processo/{id}")
-	  public void deleteResponsible(@PathVariable Long id) {
+	  public void delete(@PathVariable Long id) {
 		  LegalProcess p = processRepository.findById(id).get();
 		  SendMail mail = new SendMail(configRepository);
 		  for (Responsible r : p.getResponsibles()) {
@@ -111,3 +123,4 @@ public class LegalProcessController {
 }
 
 
+ 

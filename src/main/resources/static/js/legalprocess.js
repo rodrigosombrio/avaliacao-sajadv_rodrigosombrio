@@ -1,20 +1,40 @@
 $.fn.dataTable.ext.search.push(
     function( settings, data, dataIndex ) {
-    	if (!$("#distribuicaoInicio").val() || !$("#distribuicaoFim").val()) return true;
-    	if ($("#distribuicaoInicio").val() == "" || $("#distribuicaoFim").val() == "") return true;
-    	
-    	var di = $("#distribuicaoInicio").val().split("/");
-    	var df = $("#distribuicaoFim").val().split("/");
-    	
-    	var mi = moment(di[2] + "-" + di[1] + "-" + di[0]);
-    	var mf = moment(df[2] + "-" + df[1] + "-" + df[0]);
-    	
-    	var m = moment(data[1]);
-    	if (m.isAfter(mi) && m.isBefore(mf)) return true;
-    	
-        return false;
+    	console.log(settings, data, dataIndex )
+    	if (settings["sTableId"] == "tableLegalProcess") {
+        	if (!$("#distribuicaoInicio").val() || !$("#distribuicaoFim").val()) return true;
+        	if ($("#distribuicaoInicio").val() == "" || $("#distribuicaoFim").val() == "") return true;
+        	
+        	var di = $("#distribuicaoInicio").val().split("/");
+        	var df = $("#distribuicaoFim").val().split("/");
+        	
+        	var mi = moment(di[2] + "-" + di[1] + "-" + di[0]);
+        	var mf = moment(df[2] + "-" + df[1] + "-" + df[0]);
+        	
+        	var m = moment(data[1]);
+        	if (m.isSameOrAfter(mi) && m.isSameOrBefore(mf)) return true;
+        	
+            return false;
+    	}
+    	return true;
     }
 );
+
+
+var Situation = {
+	Em_Andamento: "Em_Andamento",
+	Desmembrado: "Desmembrado",
+	Em_Recurso: "Em_Recurso",
+	Finalizado: "Finalizado",
+	Arquivado: "Arquivado",
+	properties: {
+		"Em_Andamento": {name: "Em andamento", value: false},
+		"Desmembrado": {name: "Desmembrado", value: false},
+		"Em_Recurso": {name: "Em recurso", value: false},
+		"Finalizado": {name: "Finalizado", value: true},
+		"Arquivado": {name: "Arquivado", value: true}
+	}
+};
 
 var legalprocess = (function(){
 	var datatable = null;
@@ -26,6 +46,7 @@ var legalprocess = (function(){
 		setCode: function(value) { codePage = value; },
 		getCode: function() { return codePage; },
 		start: function() {
+			moment.locale('pt-BR');
 			$.get('templates/legalprocess/query.mst', function(tpl) {
 				var html = Mustache.render(tpl, {"code": "processo" });
 				$("main").append(html);
@@ -127,6 +148,7 @@ var legalprocess = (function(){
 		},
 		loadResponsibles: function() {
 			$(".loading").show();
+			console.log("loading")
 			var options = {
 				type: 'GET',
 				dataType: 'json',
@@ -134,8 +156,10 @@ var legalprocess = (function(){
 				url: '/responsaveis'
 	        };					
 			main.request(options).then(function(data) {
+				$(".loading").hide();
 				legalprocess.setResponsibles(data);
 				legalprocess.refreshFilter(data);
+				$(".loading").hide();
 			}).catch(function(error) {
 				$(".loading").hide();
 			});
@@ -177,9 +201,8 @@ var legalprocess = (function(){
 				            { data: 'distributionDate', render: function ( data, type, row ) {
 			                    if (type === 'display') {
 			                    	if (data) {
-			                    		data = data.replace("T00", "T02");
-				                    	var m = moment(data);
-				                    	return m.tz("America/Sao_Paulo").format("DD/MM/YYYY");
+			                        	var m = moment(data);
+				                    	return m.format("DD/MM/YYYY");
 			                    	}
 			                    }
 			                    return data;
@@ -193,7 +216,12 @@ var legalprocess = (function(){
 			                } },
 				            { data: 'physicalFolder' },
 				            { data: 'description' },
-				            { data: 'situation' },
+				            { data: 'situation' , render: function ( data, type, row ) {
+			                    if (type === 'display') {
+			                    	return Situation.properties[data].name;
+			                    }
+			                    return data;
+			                } },
 				            { data: 'responsibleName' },
 				            { data: 'responsibleId', "visible": false, "searchable": false },
 				            { data: 'id', render: function ( data, type, row ) {
@@ -275,6 +303,11 @@ var legalprocess = (function(){
 						maxDate: new Date(),
 						text: textCalendar
 					});
+					if (data["distributionDate"] && data["distributionDate"].indexOf("-") != -1) {
+						var m = moment(data["distributionDate"]);
+						$('#distribuicaoAdd').calendar('set date', m.toDate());
+					}
+					
 					$("#processoUnificado").mask("0000000-00.0000.0.00.0000");
 					
 					if (data["responsibleId"]) {
@@ -515,6 +548,7 @@ var legalprocessEvents = (function(){
 					}
 				});
 				if (tochange) {
+					
 					tochange["title"] = "Editar processo";
 					tochange["method"] = "PUT";
 					tochange["segredojustica"] = (tochange["justiceSecret"] ? "checked": "");
